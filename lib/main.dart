@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import './timechunk.dart';
+import 'widgets/user_timechunks.dart';
+
 
 void main() => runApp(MyApp());
 
@@ -14,15 +15,10 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatelessWidget {
-final List<Timechunk> justalist = [ Timechunk(
-      id: 0, 
-      title: 'Learning Flutter', 
-      duration: 60, 
-      start: DateTime.now(),
-      category: 'skills')
-  ];
 
-
+ // String titleInput;
+ // String durationInput;
+ 
 
   @override
   Widget build(BuildContext context) {
@@ -30,21 +26,21 @@ final List<Timechunk> justalist = [ Timechunk(
       appBar: AppBar(
         title: Text('Time Master'),
       ),
-      body: Column(
-        children: [
-          Container(
-            width: double.infinity,
-            child: Card(
-              color:Colors.blue,
-              child: Text('Chart!'),
-              elevation: 5,
+      body: SingleChildScrollView(
+              child: Column(
+          
+          children: [
+            Container(
+              width: double.infinity,
+              child: Card(
+                color:Colors.blue,
+                child: Text('Chart!'),
+                elevation: 5,
+              ),
             ),
-          ),
-          Card(
-            color: Colors.teal,
-            child: Text('Main card')
-          )
-        ],
+            UserTimechunks(),
+          ],
+        ),
       )
     );
   }
