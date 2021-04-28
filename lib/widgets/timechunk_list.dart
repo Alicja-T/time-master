@@ -11,48 +11,53 @@ class TimechunkList  extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return     Column(children: timechunks.map( (chunk) {
-           return Card(
-             child: Row(children: <Widget> [
-                Container(
-                  margin: EdgeInsets.symmetric(
-                    vertical: 10, 
-                    horizontal: 15),
-                  decoration: BoxDecoration(border: Border.all(
-                    color: Colors.deepPurple,
-                    width: 2,
-                  )),
-                  padding: EdgeInsets.all(10),
-                  child: Text(
-                    '${chunk.duration} min',
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20,
-                        color: Colors.deepPurple,
-                      )
-                )
-               ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Text(
-                    chunk.title,
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 14,
-                      color: Colors.blue
+    return Container(
+      height: 300,
+      child: ListView.builder(
+        itemBuilder: (ctx, index) {
+          return Card(
+               child: Row(children: <Widget> [
+                  Container(
+                    margin: EdgeInsets.symmetric(
+                      vertical: 10, 
+                      horizontal: 15),
+                    decoration: BoxDecoration(border: Border.all(
+                      color: Colors.deepPurple,
+                      width: 2,
                     )),
-                  Text(
-                    DateFormat.yMd().add_jm().format(chunk.start),
-                    style: TextStyle(
-                      fontSize: 12,
-                      color: Colors.grey
-                    ))
-                ]
-              )
-             ])
-           );
-         }).toList()
+                    padding: EdgeInsets.all(10),
+                    child: Text(
+                      '${timechunks[index].duration} min',
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20,
+                          color: Colors.deepPurple,
+                        )
+                  )
+                 ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(
+                      timechunks[index].title,
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 14,
+                        color: Colors.blue
+                      )),
+                    Text(
+                      DateFormat.yMd().add_jm().format(timechunks[index].start),
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: Colors.grey
+                      ))
+                  ]
+                )
+               ])
+             );
+        },
+        itemCount: timechunks.length,
+      ),
     );
   }
 }

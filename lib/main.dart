@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'widgets/user_timechunks.dart';
-
+import 'widgets/timechunk_list.dart';
+import 'widgets/new_timechunk.dart';
+import 'models/timechunk.dart';
 
 void main() => runApp(MyApp());
 
@@ -14,21 +15,67 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class MyHomePage extends StatelessWidget {
+class MyHomePage extends StatefulWidget {
 
  // String titleInput;
  // String durationInput;
- 
+  @override
+  _MyHomePageState createState() => _MyHomePageState();
+}
+class _MyHomePageState extends State<MyHomePage> {
+ final List<Timechunk> _userTimechunks = [
+    Timechunk(
+      id: 0, 
+      title: 'Learning Flutter', 
+      duration: 60, 
+      start: DateTime.now(),
+      category: 'skills'),
+    Timechunk(
+      id: 1, 
+      title: 'Cleaning Dishes', 
+      duration: 15, 
+      start: DateTime.now(),
+      category: 'chores'),
+  ];
+
+  void _addNewTimechunk(String tctitle, int tcduration) {
+    final newTimechunk = Timechunk(
+      title: tctitle, 
+      duration : tcduration,
+      start: DateTime.now(),
+      category: 'TO_DO',
+      id: tctitle.hashCode
+      );
+
+    setState(() {
+      _userTimechunks.add(newTimechunk);
+    });
+  }
+  
+  void _startAddNewTimeChunk(BuildContext ctx){
+    showModalBottomSheet(
+      context: ctx, 
+      builder: (_) {
+      return GestureDetector(
+        onTap: () {},
+        child: NewTimechunk(_addNewTimechunk),
+        behavior: HitTestBehavior.opaque,);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('Time Master'),
+        actions: <Widget> [
+          IconButton(
+            icon: Icon(Icons.add), 
+            onPressed: () => _startAddNewTimeChunk(context))
+        ],
       ),
       body: SingleChildScrollView(
-              child: Column(
-          
+        child: Column(
           children: [
             Container(
               width: double.infinity,
@@ -38,10 +85,15 @@ class MyHomePage extends StatelessWidget {
                 elevation: 5,
               ),
             ),
-            UserTimechunks(),
+            TimechunkList(_userTimechunks)
           ],
         ),
-      )
+      ),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.add),
+        onPressed: () => _startAddNewTimeChunk(context),
+      ),
     );
   }
 }
+

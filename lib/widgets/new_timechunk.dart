@@ -7,6 +7,17 @@ class NewTimechunk extends StatelessWidget {
 
   NewTimechunk(this.newTc);
 
+  void submitData(){
+    final enteredTitle = titleController.text;
+    final enteredDuration = int.parse(durationController.text);
+
+    if (enteredTitle.isEmpty || enteredDuration <= 0){
+      return;
+    }
+
+    newTc( enteredTitle, enteredDuration );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -18,25 +29,21 @@ class NewTimechunk extends StatelessWidget {
                    decoration: InputDecoration(
                      labelText: 'Title'
                    ),
-                   controller: titleController
+                   controller: titleController,
+                   onSubmitted: (_) => submitData(),
                  ),
                  TextField(
                     decoration: InputDecoration(
-                     labelText: 'Duration'
+                    labelText: 'Duration'
                    ),
-                   controller: durationController
+                   controller: durationController,
+                   keyboardType: TextInputType.number,
+                   onSubmitted: (_) => submitData(),
                  ),
                  FlatButton(
                    child: Text('Add Activity'),
                    textColor: Colors.blue,
-                  onPressed: () {
-                    newTc(
-                      titleController.text, 
-                      int.parse(durationController.text)
-                      );
-                   
-                  }
-                   )
+                   onPressed: submitData )
                ]
               ),
             ),
