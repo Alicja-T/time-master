@@ -1,11 +1,18 @@
 import 'package:flutter/material.dart';
 
-class NewTimechunk extends StatelessWidget {
+class NewTimechunk extends StatefulWidget {
   final Function newTc;
-  final titleController = TextEditingController();
-  final durationController = TextEditingController();
 
   NewTimechunk(this.newTc);
+
+  @override
+  _NewTimechunkState createState() => _NewTimechunkState();
+}
+
+class _NewTimechunkState extends State<NewTimechunk> {
+  final titleController = TextEditingController();
+
+  final durationController = TextEditingController();
 
   void submitData(){
     final enteredTitle = titleController.text;
@@ -15,7 +22,8 @@ class NewTimechunk extends StatelessWidget {
       return;
     }
 
-    newTc( enteredTitle, enteredDuration );
+    widget.newTc( enteredTitle, enteredDuration );
+    Navigator.of(context).pop();
   }
 
   @override

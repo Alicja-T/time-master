@@ -10,6 +10,28 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter App',
+      theme: ThemeData(
+        primaryColor: Colors.lightBlue,
+        accentColor: Colors.cyan,
+        fontFamily: 'Quicksand',
+        textTheme: ThemeData.light().textTheme.copyWith(
+          title: TextStyle(
+            fontFamily: "OpenSans",
+            fontWeight: FontWeight.bold,
+            fontSize: 18,
+            color: Colors.blue
+          )
+        ),
+        appBarTheme: AppBarTheme(
+          textTheme: ThemeData.light().textTheme.copyWith(
+            title: TextStyle(
+              fontFamily: "OpenSans",
+              fontWeight: FontWeight.bold,
+              fontSize: 20,
+            )
+          ),
+        )
+      ),
       home: MyHomePage(),
     );
   }
@@ -24,18 +46,18 @@ class MyHomePage extends StatefulWidget {
 }
 class _MyHomePageState extends State<MyHomePage> {
  final List<Timechunk> _userTimechunks = [
-    Timechunk(
-      id: 0, 
-      title: 'Learning Flutter', 
-      duration: 60, 
-      start: DateTime.now(),
-      category: 'skills'),
-    Timechunk(
-      id: 1, 
-      title: 'Cleaning Dishes', 
-      duration: 15, 
-      start: DateTime.now(),
-      category: 'chores'),
+    // Timechunk(
+    //   id: 0, 
+    //   title: 'Learning Flutter', 
+    //   duration: 60, 
+    //   start: DateTime.now(),
+    //   category: 'skills'),
+    // Timechunk(
+    //   id: 1, 
+    //   title: 'Cleaning Dishes', 
+    //   duration: 15, 
+    //   start: DateTime.now(),
+    //   category: 'chores'),
   ];
 
   void _addNewTimechunk(String tctitle, int tcduration) {
