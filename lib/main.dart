@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'widgets/timechunk_list.dart';
 import 'widgets/new_timechunk.dart';
+import 'widgets/chart.dart';
 import 'models/timechunk.dart';
+
 
 void main() => runApp(MyApp());
 
@@ -60,12 +62,27 @@ class _MyHomePageState extends State<MyHomePage> {
     //   category: 'chores'),
   ];
 
+  List<Timechunk> get  _recentTimechunks {
+    return _userTimechunks.where( (tc) {
+      return tc.start.isAfter(DateTime.now().subtract(
+        Duration(days: 7)
+      ));
+    }).toList();
+  }
+
+  List<String> categories = [
+    'chores',
+    'skills',
+    'sleep',
+    'work',
+  ];
+
   void _addNewTimechunk(String tctitle, int tcduration) {
     final newTimechunk = Timechunk(
-      title: tctitle, 
+      title: 'placeholder', 
       duration : tcduration,
       start: DateTime.now(),
-      category: 'TO_DO',
+      category: tctitle,
       id: tctitle.hashCode
       );
 
@@ -98,15 +115,8 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: SingleChildScrollView(
         child: Column(
-          children: [
-            Container(
-              width: double.infinity,
-              child: Card(
-                color:Colors.blue,
-                child: Text('Chart!'),
-                elevation: 5,
-              ),
-            ),
+          children: <Widget>[
+            Chart(_recentTimechunks, categories),
             TimechunkList(_userTimechunks)
           ],
         ),

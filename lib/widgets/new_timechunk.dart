@@ -31,28 +31,30 @@ class _NewTimechunkState extends State<NewTimechunk> {
     return Card(
             child: Container(
               padding: EdgeInsets.all(10),
-              child: Column(
-               children: <Widget>[
-                 TextField(
-                   decoration: InputDecoration(
-                     labelText: 'Title'
+              child: SingleChildScrollView(
+                child: Column(
+                 children: <Widget>[
+                   TextField(
+                     decoration: InputDecoration(
+                       labelText: 'Category'
+                     ),
+                     controller: titleController,
+                     onSubmitted: (_) => submitData(),
                    ),
-                   controller: titleController,
-                   onSubmitted: (_) => submitData(),
-                 ),
-                 TextField(
-                    decoration: InputDecoration(
-                    labelText: 'Duration'
+                   TextField(
+                      decoration: InputDecoration(
+                      labelText: 'Duration'
+                     ),
+                     controller: durationController,
+                     keyboardType: TextInputType.number,
+                     onSubmitted: (_) => submitData(),
                    ),
-                   controller: durationController,
-                   keyboardType: TextInputType.number,
-                   onSubmitted: (_) => submitData(),
-                 ),
-                 FlatButton(
-                   child: Text('Add Activity'),
-                   textColor: Colors.blue,
-                   onPressed: submitData )
-               ]
+                   FlatButton(
+                     child: Text('Add Activity'),
+                     textColor: Colors.blue,
+                     onPressed: submitData )
+                 ]
+                ),
               ),
             ),
           );

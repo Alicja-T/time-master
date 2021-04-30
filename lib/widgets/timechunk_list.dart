@@ -53,7 +53,7 @@ class TimechunkList  extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Text(
-                      timechunks[index].title,
+                      timechunks[index].category,
                       style: Theme.of(context).textTheme.title, 
                     ),
                     Text(
