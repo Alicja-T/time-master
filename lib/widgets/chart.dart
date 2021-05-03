@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../models/timechunk.dart';
+import './chart_bar.dart';
 
 class Chart extends StatelessWidget {
 
@@ -27,7 +28,11 @@ class Chart extends StatelessWidget {
     });
   }
   
-  
+  int get maxDuration {
+    return groupedChunks.fold(0, (sum, item) {
+      return sum + item['duration'];
+    });
+  }
   
   
   @override
@@ -36,10 +41,23 @@ class Chart extends StatelessWidget {
     return Card(
       elevation: 6,
       margin: EdgeInsets.all(20),
-      child: Row(children: <Widget>[
-
-      ])
-      
+      child: Container(
+        padding: EdgeInsets.all(10),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: groupedChunks.map(
+            (chunkData) {
+              return Flexible(
+                  fit: FlexFit.tight,
+                  child: ChartBar(
+                  chunkData['category'], 
+                  chunkData['duration'], 
+                  maxDuration == 0 ? 0 : (chunkData['duration'] as int) /maxDuration),
+              );
+            }
+          ).toList(
+        ),),
+      )
     );
   }
 }
