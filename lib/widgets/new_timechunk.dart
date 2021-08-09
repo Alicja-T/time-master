@@ -19,11 +19,11 @@ class _NewTimechunkState extends State < NewTimechunk > {
     final enteredTitle = _titleController.text;
     final enteredDuration = int.parse(_durationController.text);
 
-    if (enteredTitle.isEmpty || enteredDuration <= 0) {
+    if (enteredTitle.isEmpty || enteredDuration <= 0 || _selectedDate == null) {
       return;
     }
 
-    widget.newTc(enteredTitle, enteredDuration);
+    widget.newTc(enteredTitle, enteredDuration, _selectedDate);
     Navigator.of(context).pop();
   }
 
@@ -41,6 +41,20 @@ class _NewTimechunkState extends State < NewTimechunk > {
           _selectedDate = pickedDate;
         });
       });
+  }
+
+  void _presentTimePicker(){
+    showTimePicker(
+    context: context,
+    initialTime: TimeOfDay.now(),
+  ).then( (pickedTime) {
+    if (pickedTime != null) {
+      setState(() {
+         DateTime tempDate = _selectedDate;
+         _selectedDate = DateTime(tempDate.year, tempDate.month, tempDate.day, pickedTime.hour, pickedTime.minute);
+      });
+    }
+  });
   }
 
   @override
@@ -78,6 +92,11 @@ class _NewTimechunkState extends State < NewTimechunk > {
                     textColor: Theme.of(context).primaryColor,
                     child: Text('Choose Date', style: TextStyle(fontWeight: FontWeight.bold)),
                     onPressed: _presentDatePicker,
+                  ),
+                   FlatButton(
+                    textColor: Theme.of(context).primaryColor,
+                    child: Text('Choose Time', style: TextStyle(fontWeight: FontWeight.bold)),
+                    onPressed: _presentTimePicker,
                   )
                 ]),
               ),

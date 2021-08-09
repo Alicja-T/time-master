@@ -81,11 +81,11 @@ class _MyHomePageState extends State<MyHomePage> {
     'work',
   ];
 
-  void _addNewTimechunk(String tctitle, int tcduration) {
+  void _addNewTimechunk(String tctitle, int tcduration, DateTime chosenDate) {
     final newTimechunk = Timechunk(
       title: 'placeholder', 
       duration : tcduration,
-      start: DateTime.now(),
+      start: chosenDate,
       category: tctitle,
       id: tctitle.hashCode
       );
