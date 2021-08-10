@@ -6,8 +6,8 @@ import '../models/timechunk.dart';
 
 class TimechunkList extends StatelessWidget {
   final List < Timechunk > timechunks;
-
-  TimechunkList(this.timechunks);
+  final Function deleteTimeChunk;
+  TimechunkList(this.timechunks, this.deleteTimeChunk);
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +49,12 @@ class TimechunkList extends StatelessWidget {
               subtitle: Text(
                 DateFormat.yMd().add_jm().format(timechunks[index].start),
               ),
-
+              trailing: IconButton(
+                icon: Icon(Icons.delete),
+                color: Theme.of(context).errorColor,
+                onPressed: () => deleteTimeChunk(timechunks[index].id),
+                ),
+              
             ),
           );
 

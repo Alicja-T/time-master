@@ -87,7 +87,7 @@ class _MyHomePageState extends State<MyHomePage> {
       duration : tcduration,
       start: chosenDate,
       category: tctitle,
-      id: tctitle.hashCode
+      id: DateTime.now().toString().hashCode,
       );
 
     setState(() {
@@ -95,6 +95,15 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
   
+  void _deleteTimeChunk(int id){
+    setState( () {
+      _userTimechunks.removeWhere((tc) => tc.id == id);
+    });
+
+
+  }
+
+
   void _startAddNewTimeChunk(BuildContext ctx){
     showModalBottomSheet(
       context: ctx, 
@@ -121,7 +130,7 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           children: <Widget>[
             Chart(_recentTimechunks, categories),
-            TimechunkList(_userTimechunks)
+            TimechunkList(_userTimechunks, _deleteTimeChunk)
           ],
         ),
       ),
